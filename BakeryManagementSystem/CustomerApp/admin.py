@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from CustomerApp.models import Cart
+from CustomerApp.models import Order
 
-admin.site.register(Cart)
+admin.site.register(Order)
 
 
 # Register your models here.

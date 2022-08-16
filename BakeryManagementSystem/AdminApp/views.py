@@ -15,6 +15,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+"""Sign Up the user"""
+
 
 class UserSignUp(APIView):
 
@@ -30,6 +32,9 @@ class UserSignUp(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response({'serializer':'Invalid data'}, status= status.HTTP_400_BAD_REQUEST)
+
+
+"""Login User"""
 
 
 class UserLogIn(APIView):
@@ -49,20 +54,23 @@ class UserLogIn(APIView):
             return Response({"Serializer": "invalid"}, status=status.HTTP_404_NOT_FOUND)
 
 
-class ingredient_list(APIView):
+""" Ingredients--> Add them, Fetch them, Update them"""
+
+
+class IngredientList(APIView):
     def get(self, request):
         ingredients = Ingredient.objects.all()
         serializer = IngredientSerializer(ingredients, many=True)
         return Response(serializer.data)
 
-    def post(self,request):
+    def post(self, request):
         serializer = IngredientSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({'items':'Ingredients Created'}, status=status.HTTP_201_CREATED)
-        return Response({'List':'Not Valid'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'items': 'Ingredients Created'}, status=status.HTTP_201_CREATED)
+        return Response({'List': 'Not Valid'}, status=status.HTTP_400_BAD_REQUEST)
 
-    def patch(self,request):
+    def patch(self, request):
         previous_ingredients = Ingredient.objects.get(name=request.data['name'])
         if previous_ingredients is not None:
             previous_ingredients.quantity += request.data['quantity']
@@ -71,6 +79,8 @@ class ingredient_list(APIView):
         else:
             return Response({'Ingredient': 'Not Found'}, status=status.HTTP_404_NOT_FOUND)
 
+
+"""cCalculating price of One respective item"""
 
 
 def calculate(request):

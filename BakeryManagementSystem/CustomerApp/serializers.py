@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
-from CustomerApp.models import Cart
+from CustomerApp.models import Order
 
 
-class CartSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Cart
-        fields = ['item_list', 'quantity']
+        model = Order
+        fields = ['item', 'quantity', 'status']
 
